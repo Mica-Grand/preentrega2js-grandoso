@@ -101,22 +101,30 @@ function vaciarCarrito() {
 let continuar = true;
 
 do {
-    const idProducto = parseInt(prompt("Mirá el catálogo por consola. Luego, escribí el ID del producto que querés agregar al carrito. \n Escribi '0' si terminaste de agregar."));
+    const idProducto = parseInt(prompt("Ingresá el ID del producto que querés agregar al carrito (por ej. ingresá 1 si querés agregar un Velador Karen):\n\n" +
+    productos.map(producto => `${producto.id}: ${producto.nombre}`).join("\n") +
+    "\n\nEscribí '0' si terminaste de agregar.\n\n"));
+    
     const carritoInfo = carrito.map(producto => `${producto.nombre} (cantidad: ${carrito.filter(p => p.id === producto.id).length})`);
     if (idProducto === 0) {
         // opciones de como continuar
-        const opciones = parseInt(prompt(`El total de tu carrito es de $ ${calcularTotalCarrito()}.\n Productos en el carrito:\n ${carritoInfo.join('\n')} \n Elegí una opción: \n 1. Continuar al pago \n 2. Eliminar un producto \n 3. Vaciar carrito`));
+        const opciones = parseInt(prompt(`El total de tu carrito es de $ ${calcularTotalCarrito()}.\n\n Productos en el carrito: \n\n ${carritoInfo.join('\n')} \n\n Elegí una opción: \n 1. Seguir agregando productos. \n 2. Continuar al pago \n 3. Eliminar un producto \n 4. Vaciar carrito \n 5. Salir \n\n`));
         switch (opciones) {
             case 1:
+                break;
+            case 2:
                 alert("Te estamos redirigiendo al pago...");
                 continuar = false;
                 break;
-            case 2:
+            case 3:
                 const idProductoAEliminar = parseInt(prompt("Escribí el id del producto que querés eliminar"));
                 eliminarProductoDeCarrito(idProductoAEliminar);
                 break;
-            case 3:
+            case 4:
                 vaciarCarrito();
+                break;
+            case 5:
+                continuar = false;
                 break;
             default:
                 alert("Opción inválida");
