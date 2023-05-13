@@ -23,8 +23,8 @@
             </a>
 
             <div class = "order-lg-2 nav-btns">
-                <button type = "button" class = "btn position-relative">
-                    <i class = "fa fa-shopping-cart"></i>
+                <button type = "button" class = "btn position-relative" id="btn-cart">
+                    <a href="./carrito.html"><i class = "fa fa-shopping-cart"></i></a>
                     <span class = "position-absolute top-0 start-100 translate-middle badge bg-primary">0</span>
                 </button>
                 <button type = "button" class = "btn position-relative">
@@ -57,7 +57,7 @@
     <!-- fin de navbar -->
 
     <!-- header -->
-    <header id = "header" class = "vh-100 carousel slide" data-bs-ride = "carousel" style = "padding-top: 104px;">
+    <header id = "header" class = " header vh-100 carousel slide" data-bs-ride = "carousel">
         <div class = "container h-100 d-flex align-items-center carousel-inner">
             <div class = "text-center carousel-item active">
                 <h1 class = "text-capitalize text-white">tendencias</h1>
@@ -94,125 +94,10 @@
                     <button type = "button" class = "btn m-2 text-dark" data-filter = ".habitacion">Deco</button>
                     <button type = "button" class = "btn m-2 text-dark" data-filter = ".lamparas">Iluminación</button>
                 </div>
+                
 
-                <div class = "collection-list mt-4 row gx-0 gy-3">
-                    <div class = "tarjeta col-md-6 col-lg-4 col-xl-3 p-2">
-                        <div class = "catalogo-img position-relative">
-                            <img src = "./img/lampara-karen.jpeg" class = "w-100">
-                            <span class = "position-absolute bg-primary text-white d-flex align-items-center justify-content-center">oferta</span>
-                        </div>
-                        <div class = "tarjeta-texto text-center">
-                            <p class = "text-capitalize my-1">velador karen</p>
-                            <p class = "text-capitalize my-1">ID: 1</p>
-                            <span class = "fw-bold">$ 10.900</span>
-                        </div>
-                        <div class = "text-center">
-                            <button type = "button" class = "btn m-2 text-dark">Añadir al carrito</button>
-                        </div>
-                    </div>
-
-                    <div class = "tarjeta col-md-6 col-lg-4 col-xl-3 p-2">
-                        <div class = "catalogo-img position-relative">
-                            <img src = "img/lampara-tina.jpeg" class = "w-100">
-                            <span class = "position-absolute bg-primary text-white d-flex align-items-center justify-content-center">oferta</span>
-                        </div>
-                        <div class = "tarjeta-texto text-center">
-                            <p class = "text-capitalize my-1">velador tina</p>
-                            <p class = "text-capitalize my-1">ID: 2</p>
-                            <span class = "fw-bold">$ 11.900</span>
-                        </div>
-                        <div class = "text-center">
-                            <button type = "button" class = "btn m-2 text-dark">Añadir al carrito</button>
-                        </div>
-                    </div>
-
-                    <div class = "tarjeta col-md-6 col-lg-4 col-xl-3 p-2">
-                        <div class = "catalogo-img position-relative">
-                            <img src = "./img/puff.jpeg" class = "w-100">
-                            <span class = "position-absolute bg-primary text-white d-flex align-items-center justify-content-center">oferta</span>
-                        </div>
-                        <div class = "tarjeta-texto text-center">
-                            <p class = "text-capitalize my-1">puff natural</p>
-                            <p class = "text-capitalize my-1">ID: 3</p>
-                            <span class = "fw-bold">$ 19.900</span>
-                        </div>
-                        <div class = "text-center">
-                            <button type = "button" class = "btn m-2 text-dark">Añadir al carrito</button>
-                        </div>
-                    </div>
-
-                    <div class = "tarjeta col-md-6 col-lg-4 col-xl-3 p-2">
-                        <div class = "catalogo-img position-relative">
-                            <img src = "img/espejo.jpeg" class = "w-100">
-                            <span class = "position-absolute bg-primary text-white d-flex align-items-center justify-content-center">nuevo</span>
-                        </div>
-                        <div class = "tarjeta-texto text-center">
-                            <p class = "text-capitalize my-1">espejo circular</p>
-                            <p class = "text-capitalize my-1">ID: 4</p>
-                            <span class = "fw-bold">$ 12.100</span>
-                        </div>
-                        <div class = "text-center">
-                            <button type = "button" class = "btn m-2 text-dark">Añadir al carrito</button>
-                        </div>
-                    </div>
-
-                    <div class = "tarjeta col-md-6 col-lg-4 col-xl-3 p-2">
-                        <div class = "catalogo-img position-relative">
-                            <img src = "img/banquito.jpeg" class = "w-100">
-                            <span class = "position-absolute bg-primary text-white d-flex align-items-center justify-content-center">nuevo</span>
-                        </div>
-                        <div class = "tarjeta-texto text-center">
-                            <p class = "text-capitalize my-1">banquito Quito</p>
-                            <p class = "text-capitalize my-1">ID: 5</p>
-                            <span class = "fw-bold">$ 15.000</span>
-                        </div>
-                        <div class = "text-center">
-                            <button type = "button" class = "btn m-2 text-dark">Añadir al carrito</button>
-                        </div>
-                    </div>
-
-                    <div class = "tarjeta col-md-6 col-lg-4 col-xl-3 p-2">
-                        <div class = "catalogo-img position-relative">
-                            <img src = "img/perchero.jpeg" class = "w-100">
-                            <span class = "position-absolute bg-primary text-white d-flex align-items-center justify-content-center">nuevo</span>
-                        </div>
-                        <div class = "tarjeta-texto text-center">
-                            <p class = "text-capitalize my-1">perchero Pola</p>
-                            <p class = "text-capitalize my-1">ID: 6</p>
-                            <span class = "fw-bold">$ 25.000</span>
-                        </div>
-                        <div class = "text-center">
-                            <button type = "button" class = "btn m-2 text-dark">Añadir al carrito</button>
-                        </div>
-                    </div>
-
-                    <div class = "tarjeta col-md-6 col-lg-4 col-xl-3 p-2">
-                        <div class = "catalogo-img position-relative">
-                            <img src = "img/lampara-hilos.jpeg" class = "w-100">
-                        </div>
-                        <div class = "tarjeta-texto text-center">
-                            <p class = "text-capitalize my-1">lámpara hilos</p>
-                            <p class = "text-capitalize my-1">ID: 7</p>
-                            <span class = "fw-bold">$ 14.000</span>
-                        </div>
-                        <div class = "text-center">
-                            <button type = "button" class = "btn m-2 text-dark">Añadir al carrito</button>
-                        </div>
-                    </div>
-
-                    <div class = "tarjeta col-md-6 col-lg-4 col-xl-3 p-2">
-                        <div class = "catalogo-img position-relative">
-                            <img src = "img/cuadro.jpeg" class = "w-100">
-                        </div>
-                        <div class = "tarjeta-texto text-center">
-                            <p class = "text-capitalize my-1">cuadro home</p>
-                            <p class = "text-capitalize my-1">ID: 8</p>
-                            <span class = "fw-bold">$ 15.000 </span>
-                        </div>
-                        <div class = "text-center">
-                            <button type = "button" class = "btn m-2 text-dark">Añadir al carrito</button>
-                        </div>
-                    </div>
+                <div id= "contenedor-tarjetas" class = "container mt-4 gx-0 gy-3">
+                    <!-- aca inserto las tarjetas en el js -->
                 </div>
             </div>
         </div>
@@ -267,7 +152,7 @@
                 </div>
 
                 <div class = "col-md-6 col-lg-3">
-                    <h5 class = "fw-light">Links</h5>
+                    <h4 class = "fw-light">Links</h4>
                     <ul class = "list-unstyled">
                         <li class = "my-3">
                             <a href = "#header" class = "text-white text-decoration-none text-muted">
@@ -291,7 +176,7 @@
                     <h5 class = "fw-light mb-3">Contacto</h5>
                     <div class = "d-flex justify-content-start align-items-start my-2 text-muted">
                         <span class = "me-3">
-                            <i class = "fas fa-map-marked-alt"></i>
+                            <i class = "icono-contacto fas fa-map-marked-alt"></i>
                         </span>
                         <span class = " text-white fw-light">
                             Direccion
@@ -299,15 +184,15 @@
                     </div>
                     <div class = "d-flex justify-content-start align-items-start my-2 text-muted">
                         <span class = "me-3">
-                            <i class = "fas fa-envelope"></i>
+                            <i class = "icono-contacto fas fa-envelope"></i>
                         </span>
-                        <span class = "text-white fw-light">
+                        <span class = "icono-contacto text-white fw-light">
                             contacto@homeanddeco.com
                         </span>
                     </div>
                     <div class = "d-flex justify-content-start align-items-start my-2 text-muted">
                         <span class = "me-3">
-                            <i class = "fas fa-phone-alt"></i>
+                            <i class = "icono-contacto fas fa-phone-alt"></i>
                         </span>
                         <span class = "text-white fw-light">
                             +123445566669
