@@ -27,14 +27,17 @@
                 <span class="text-uppercase fw-lighter ms-2">Home&Deco</span>
             </a>
 
-            <div class="order-lg-2 nav-btns">
-                <button type="button" class="btn position-relative" id="btn-cart">
-                    <i class="fa fa-shopping-cart"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle badge bg-primary">0</span>
-                </button>
-                <button type="button" class="btn position-relative">
-                    <i class="fa fa-search"></i>
-                </button>
+            <div class = "order-lg-2 nav-btns">
+                <div class="input-group mb-3">
+                    <input type="search" class="form-control" placeholder="Buscar...">
+                    <button type = "button" class = "btn position-relative">
+                        <i class = "fa fa-search"></i>
+                    </button> 
+                    <button type = "button" class = "btn position-relative" id="btn-cart">
+                        <a href="carrito.html"><i class = "fa fa-shopping-cart"></i></a>
+                        <span class = "position-absolute top-0 start-100 translate-middle badge bg-primary">0</span>
+                    </button>                 
+                </div>
             </div>
 
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
@@ -78,9 +81,11 @@
             <!-- insercion de carrito en javascript -->
             </div>
             <div class="container card">
-                <div id="totalCarrito">
+                <div id="totalCarrito" class="text-center">
 
                 </div>
+            </div>
+            <div id= "carritoVacio" class="m-auto">
             </div>
         </div>
     </section>
