@@ -132,6 +132,10 @@ body {
     text-align: left;
 }
 
+.ocultar{
+    display:none;
+}
+
 /* about */
 #about {
     background-color: rgba(179, 179, 179, 0.05);

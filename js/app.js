@@ -237,8 +237,8 @@ document.addEventListener("DOMContentLoaded", function () {
     carritoVacioDiv.setAttribute("class", "card m-auto");
     carritoVacioDiv.innerHTML = `
         <div class="card-body text-center">
-            <h3 class="card-title">Carrito vacío</h3>
-            <p class="card-text">Agrega productos a tu carrito para comenzar a comprar</p>
+            <h3 class="card-title py-3 mt-3">Carrito vacío</h3>
+            <p class="card-text py-3 mb-3">Agrega productos a tu carrito para comenzar a comprar</p>
         </div>
     `;
     const contenedorCarrito = document.querySelector("#contenedorCarrito");
@@ -318,9 +318,21 @@ document.addEventListener("DOMContentLoaded", function () {
         carritoLimpio.innerHTML = "";
     }
 
+    const modalCompraDiv = document.querySelector("#modalCompra")
+    const modalCompra = new bootstrap.Modal(modalCompraDiv);
     function comprarProductos() {
         console.log("¡Gracias por tu compra!")
+        modalCompra.show()
+        const medioPagoSelect = document.getElementById("medioPago");
+        const cuotasDiv = document.getElementById("divCuotas");
+        cuotasDiv.classList.add("ocultar");
+        medioPagoSelect.addEventListener("change", function () {
+            if (medioPagoSelect.value === "credito") {
+                cuotasDiv.classList.remove("ocultar");
+            } 
+        });
     }
+
 
 
     // Eliminar productos
