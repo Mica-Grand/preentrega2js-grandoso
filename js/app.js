@@ -7,7 +7,7 @@ const productos = [
     {
         id: 1,
         nombre: "Velador Karen",
-        imagen: "https://github.com/Mica-Grand/preentrega2js-grandoso/blob/main/img/lampara-karen.jpeg",
+        imagen: "https://github.com/Mica-Grand/preentrega2js-grandoso/blob/main/img/lampara-karen.jpeg?raw=true",
         categoria: "iluminacion",
         descripcion: "Base de ceramica blanca. Pantalla de yute. Altura 45 cm",
         precio: 10900
@@ -15,7 +15,7 @@ const productos = [
     {
         id: 2,
         nombre: "Velador Tina",
-        imagen: "https://github.com/Mica-Grand/preentrega2js-grandoso/blob/main/img/lampara-tina.jpeg",
+        imagen: "https://github.com/Mica-Grand/preentrega2js-grandoso/blob/main/img/lampara-tina.jpeg?raw=true",
         categoria: "iluminacion",
         descripcion: "Base de cemento. Pantalla de tela. Altura 45 cm",
         precio: 11900
@@ -23,7 +23,7 @@ const productos = [
     {
         id: 3,
         nombre: "Puff natural",
-        imagen: "https://github.com/Mica-Grand/preentrega2js-grandoso/blob/main/img/puff.jpeg",
+        imagen: "https://github.com/Mica-Grand/preentrega2js-grandoso/blob/main/img/puff.jpeg?raw=true",
         categoria: "muebles",
         descripcion: "puff de seagrass. Medidas: 30cm x 45cm",
         precio: 19900
@@ -31,7 +31,7 @@ const productos = [
     {
         id: 4,
         nombre: "Espejo circular",
-        imagen: "https://github.com/Mica-Grand/preentrega2js-grandoso/blob/main/img/espejo.jpeg",
+        imagen: "https://github.com/Mica-Grand/preentrega2js-grandoso/blob/main/img/espejo.jpeg?raw=true",
         categoria: "deco",
         descripcion: "Espejo con marco de fibras naturales. Medidas: 45cm",
         precio: 12100
@@ -39,7 +39,7 @@ const productos = [
     {
         id: 5,
         nombre: "Banquito Quito",
-        imagen: "https://github.com/Mica-Grand/preentrega2js-grandoso/blob/main/img/banquito.jpeg",
+        imagen: "https://github.com/Mica-Grand/preentrega2js-grandoso/blob/main/img/banquito.jpeg?raw=true",
         categoria: "muebles",
         descripcion: "Banco de madera de álamo. Medidas: ancho 90 cm, alto 65 cm.",
         precio: 15000
@@ -47,7 +47,7 @@ const productos = [
     {
         id: 6,
         nombre: "Perchero Pola",
-        imagen: "https://github.com/Mica-Grand/preentrega2js-grandoso/blob/main/img/perchero.jpeg",
+        imagen: "https://github.com/Mica-Grand/preentrega2js-grandoso/blob/main/img/perchero.jpeg?raw=true",
         categoria: "muebles",
         descripcion: "Perchero y zapatero confeccionado en madera de álamo.",
         precio: 25000
@@ -55,7 +55,7 @@ const productos = [
     {
         id: 7,
         nombre: "Lámpara hilos",
-        imagen: "https://github.com/Mica-Grand/preentrega2js-grandoso/blob/main/img/lampara-hilos.jpeg",
+        imagen: "https://github.com/Mica-Grand/preentrega2js-grandoso/blob/main/img/lampara-hilos.jpeg?raw=true",
         categoria: "iluminacion",
         descripcion: "Lámpara colgante confeccionada en hilos naturales",
         precio: 14000
@@ -63,7 +63,7 @@ const productos = [
     {
         id: 8,
         nombre: "Cuadro Home",
-        imagen: "https://github.com/Mica-Grand/preentrega2js-grandoso/blob/main/img/cuadro.jpeg",
+        imagen: "https://github.com/Mica-Grand/preentrega2js-grandoso/blob/main/img/cuadro.jpeg?raw=true",
         categoria: "deco",
         descripcion: "Cuadro decorativo. Medidas: 40cm x 60cm",
         precio: 15000
