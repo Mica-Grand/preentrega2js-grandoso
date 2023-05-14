@@ -7,7 +7,7 @@ const productos = [
     {
         id: 1,
         nombre: "Velador Karen",
-        imagen: "../img/lampara-karen.jpeg",
+        imagen: "./img/lampara-karen.jpeg",
         categoria: "iluminacion",
         descripcion: "Base de ceramica blanca. Pantalla de yute. Altura 45 cm",
         precio: 10900
@@ -15,7 +15,7 @@ const productos = [
     {
         id: 2,
         nombre: "Velador Tina",
-        imagen: "../img/lampara-tina.jpeg",
+        imagen: "./img/lampara-tina.jpeg",
         categoria: "iluminacion",
         descripcion: "Base de cemento. Pantalla de tela. Altura 45 cm",
         precio: 11900
@@ -23,7 +23,7 @@ const productos = [
     {
         id: 3,
         nombre: "Puff natural",
-        imagen: "../img/puff.jpeg",
+        imagen: "./img/puff.jpeg",
         categoria: "muebles",
         descripcion: "puff de seagrass. Medidas: 30cm x 45cm",
         precio: 19900
@@ -31,7 +31,7 @@ const productos = [
     {
         id: 4,
         nombre: "Espejo circular",
-        imagen: "../img/espejo.jpeg",
+        imagen: "./img/espejo.jpeg",
         categoria: "deco",
         descripcion: "Espejo con marco de fibras naturales. Medidas: 45cm",
         precio: 12100
@@ -39,7 +39,7 @@ const productos = [
     {
         id: 5,
         nombre: "Banquito Quito",
-        imagen: "../img/banquito.jpeg",
+        imagen: "./img/banquito.jpeg",
         categoria: "muebles",
         descripcion: "Banco de madera de álamo. Medidas: ancho 90 cm, alto 65 cm.",
         precio: 15000
@@ -47,7 +47,7 @@ const productos = [
     {
         id: 6,
         nombre: "Perchero Pola",
-        imagen: "../img/perchero.jpeg",
+        imagen: "./img/perchero.jpeg",
         categoria: "muebles",
         descripcion: "Perchero y zapatero confeccionado en madera de álamo.",
         precio: 25000
@@ -55,7 +55,7 @@ const productos = [
     {
         id: 7,
         nombre: "Lámpara hilos",
-        imagen: "../img/lampara-hilos.jpeg",
+        imagen: "./img/lampara-hilos.jpeg",
         categoria: "iluminacion",
         descripcion: "Lámpara colgante confeccionada en hilos naturales",
         precio: 14000
@@ -63,18 +63,17 @@ const productos = [
     {
         id: 8,
         nombre: "Cuadro Home",
-        imagen: "../img/cuadro.jpeg",
+        imagen: "./img/cuadro.jpeg",
         categoria: "deco",
         descripcion: "Cuadro decorativo. Medidas: 40cm x 60cm",
         precio: 15000
     },
 ];
 
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
 
 document.addEventListener("DOMContentLoaded", function () {
-
-    let carrito = [];
 
     // Mostrar productos en catalogo
 
@@ -128,6 +127,90 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     function agregarCarrito(producto) {
+        const productoExistente = carrito.find(item => item.id === producto.id);
+        if (productoExistente) {
+            productoExistente.cantidad++;
+            productoExistente.precio += producto.precio;
+        } else {
+            carrito.push({
+                id: producto.id,
+                nombre: producto.nombre,
+                imagen: producto.imagen,
+                precio: producto.precio * 1,
+                cantidad: 1
+            });
+        }
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+        console.log(carrito);
+    }
+
+
+    // Busqueda
+
+    const btnBuscar = document.querySelector("#btn-buscar");
+    const inputBuscar = document.querySelector("#input-buscar");
+    const filaTarjetasResultado = document.querySelector(".fila-tarjetas-resultado");
+    const modal = new bootstrap.Modal(document.querySelector("#modalBusqueda"), {});
+
+    btnBuscar.addEventListener("click", () => {
+        const busqueda = inputBuscar.value.toLowerCase();
+        let resultadosBusqueda = productos.filter((producto) => {
+            return producto.nombre.toLowerCase().includes(busqueda);
+        });
+        console.log(resultadosBusqueda);
+        mostrarResultadosBusqueda(resultadosBusqueda);
+        modal.show();
+    });
+
+    function mostrarResultadosBusqueda(resultados) {
+        filaTarjetasResultado.innerHTML = "";
+        resultados.forEach((producto, index) => {
+            const tarjetaResultado = document.createElement("div");
+            tarjetaResultado.classList.add(
+                "tarjeta",
+                "col-md-6",
+                "col-lg-4",
+                "col-xl-3",
+                "p-2",
+                "text-center"
+            );
+
+            const imagenTarjetaResultado = document.createElement("div");
+            imagenTarjetaResultado.classList.add(
+                "tarjeta-img",
+                "img-thumbnail",
+                "position-relative"
+            );
+            imagenTarjetaResultado.innerHTML = `
+            <img src="${producto.imagen}" class="w-100">
+        `;
+            tarjetaResultado.appendChild(imagenTarjetaResultado);
+
+            const textoTarjetaResultado = document.createElement("div");
+            textoTarjetaResultado.classList.add("tarjeta-texto", "text-center");
+            textoTarjetaResultado.innerHTML = `
+            <p class="text-capitalize my-1">${producto.nombre}</p>
+            <span class="tarjeta-precio fw-bold">$${producto.precio}</span>
+        `;
+            tarjetaResultado.appendChild(textoTarjetaResultado);
+
+            const botonAgregar = document.createElement("button");
+            botonAgregar.classList.add(
+                "tarjeta-resultados-boton",
+                "btn",
+                "m-2",
+                "text-dark"
+            );
+            botonAgregar.innerText = "Agregar al carrito";
+            botonAgregar.setAttribute("data-producto-id", producto.id);
+            botonAgregar.addEventListener("click", () => {
+                agregarDesdeModal(producto);
+            });
+            tarjetaResultado.appendChild(botonAgregar);
+            filaTarjetasResultado.appendChild(tarjetaResultado);
+        });
+    }
+    function agregarDesdeModal(producto) {
         const productoExistente = carrito.find(item => item.id === producto.id);
         if (productoExistente) {
             productoExistente.cantidad++;
@@ -269,8 +352,9 @@ document.addEventListener("DOMContentLoaded", function () {
         carrito.forEach((producto) => {
             totalActualizado += producto.precio * producto.cantidad;
         });
-        total = totalActualizado; 
+        total = totalActualizado;
         totalDiv.innerText = `Total: $${totalActualizado}`;
     }
 
 })
+
