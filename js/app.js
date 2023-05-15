@@ -77,6 +77,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Mostrar productos en catalogo
 
+    const contador = document.querySelector("#contadorCarrito");
+    function actualizarContador () {
+        console.log(carrito.length);
+        contador.innerText = carrito.length;
+    }
+
+    actualizarContador();
+
     const contenedorTarjetas = document.querySelector("#contenedor-tarjetas");
     let filaTarjetas = document.createElement("div");
     filaTarjetas.classList.add("row", "gx-0", "gy-3");
@@ -142,6 +150,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         localStorage.setItem("carrito", JSON.stringify(carrito));
         console.log(carrito);
+        actualizarContador();
     }
 
 
@@ -205,11 +214,13 @@ document.addEventListener("DOMContentLoaded", function () {
             botonAgregar.setAttribute("data-producto-id", producto.id);
             botonAgregar.addEventListener("click", () => {
                 agregarDesdeModal(producto);
+                actualizarContador();
             });
             tarjetaResultado.appendChild(botonAgregar);
             filaTarjetasResultado.appendChild(tarjetaResultado);
         });
     }
+
     function agregarDesdeModal(producto) {
         const productoExistente = carrito.find(item => item.id === producto.id);
         if (productoExistente) {
@@ -226,6 +237,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         localStorage.setItem("carrito", JSON.stringify(carrito));
         console.log(carrito);
+        actualizarContador();
     }
 
 })
@@ -342,6 +354,7 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("carrito", JSON.stringify(carrito));
         actualizarTotal();
         mostrarCarrito();
+        actualizarContador();
     }
 
     mostrarCarrito();
