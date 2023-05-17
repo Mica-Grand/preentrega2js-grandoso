@@ -8,7 +8,7 @@ const productos = [
         id: 1,
         nombre: "Velador Karen",
         imagen: "https://github.com/Mica-Grand/preentrega2js-grandoso/blob/main/img/lampara-karen.jpeg?raw=true",
-        categoria: "iluminacion",
+        categoria: "lamparas",
         descripcion: "Base de ceramica blanca. Pantalla de yute. Altura 45 cm",
         precio: 10900
     },
@@ -16,7 +16,7 @@ const productos = [
         id: 2,
         nombre: "Velador Tina",
         imagen: "https://github.com/Mica-Grand/preentrega2js-grandoso/blob/main/img/lampara-tina.jpeg?raw=true",
-        categoria: "iluminacion",
+        categoria: "lamparas",
         descripcion: "Base de cemento. Pantalla de tela. Altura 45 cm",
         precio: 11900
     },
@@ -56,7 +56,7 @@ const productos = [
         id: 7,
         nombre: "Lámpara hilos",
         imagen: "https://github.com/Mica-Grand/preentrega2js-grandoso/blob/main/img/lampara-hilos.jpeg?raw=true",
-        categoria: "iluminacion",
+        categoria: "lamparas",
         descripcion: "Lámpara colgante confeccionada en hilos naturales",
         precio: 14000
     },
@@ -75,24 +75,34 @@ let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    // Mostrar productos en catalogo
+
+    // Que se actualice el numerito de cantidad de productos en carrito
 
     const contador = document.querySelector("#contadorCarrito");
-    function actualizarContador () {
+    function actualizarContador() {
         console.log(carrito.length);
         contador.innerText = carrito.length;
     }
 
     actualizarContador();
 
+
+    // Mostrar productos en catalogo (con y sin filtro)
+
     const contenedorTarjetas = document.querySelector("#contenedor-tarjetas");
     let filaTarjetas = document.createElement("div");
     filaTarjetas.classList.add("row", "gx-0", "gy-3");
     contenedorTarjetas.appendChild(filaTarjetas);
 
+    function mostrarProductos(filtro) {
 
-    function mostrarProductos() {
-        productos.forEach((producto, index) => {
+        filaTarjetas.innerHTML = "";
+
+        const productosFiltrados = productos.filter((producto) => {
+            return filtro === "*" || producto.categoria === filtro;
+        })
+
+        productosFiltrados.forEach((producto) => {
             const tarjeta = document.createElement("div");
             tarjeta.classList.add("tarjeta", "col-md-6", "col-lg-4", "col-xl-3", "p-2", "text-center");
 
@@ -122,17 +132,38 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             botonAgregar.addEventListener("click", () => {
+                swal({
+                    title: '¡Producto agregado!',
+                    text: `Agregaste el producto ${producto.nombre} al carrito`,
+                    icon: 'success'
+                });
                 agregarCarrito(producto);
             });
 
 
             filaTarjetas.appendChild(tarjeta);
         });
-    }
+    };
 
 
-    mostrarProductos();
+    mostrarProductos("*");
 
+    const botonesFiltro = document.querySelectorAll(".filtro");
+
+    botonesFiltro.forEach((boton) => {
+        boton.addEventListener("click", () => {
+            botonesFiltro.forEach((boton) => {
+                boton.classList.remove("active-filter-btn");
+            });
+            boton.classList.add("active-filter-btn");
+
+            const filtro = boton.getAttribute("data-filter");
+            mostrarProductos(filtro);
+        });
+    });
+
+
+    // Agregar al carrito
 
     function agregarCarrito(producto) {
         const productoExistente = carrito.find(item => item.id === producto.id);
@@ -154,7 +185,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // Busqueda
+    // Busqueda (
+    // Aca me falta implementar que ande al hacer enter y que aparezca un mensaje de producto no encontrado si no encuentra nada
 
     const btnBuscar = document.querySelector("#btn-buscar");
     const inputBuscar = document.querySelector("#input-buscar");
@@ -213,6 +245,12 @@ document.addEventListener("DOMContentLoaded", function () {
             botonAgregar.innerText = "Agregar al carrito";
             botonAgregar.setAttribute("data-producto-id", producto.id);
             botonAgregar.addEventListener("click", () => {
+                swal({
+                    title: "¡Producto agregado!",
+                    text: `Agregaste el producto ${producto.nombre} al carrito`,
+                    icon: "success",
+                    timer: 2000,
+                });
                 agregarDesdeModal(producto);
                 actualizarContador();
             });
@@ -240,10 +278,48 @@ document.addEventListener("DOMContentLoaded", function () {
         actualizarContador();
     }
 
+    // Newsletter
+
+    const inputNewsNombre = document.querySelector(".news-nombre");
+    const inputNewsMail = document.querySelector(".news-mail");
+    const btnSuscribirse = document.querySelector(".suscribirse");
+    const nombreSuscriptor = inputNewsNombre.value;
+
+
+    btnSuscribirse.addEventListener("click", () => {
+        if (inputNewsNombre.value === "" || inputNewsMail.value === "") {
+            swal({
+                title: "Error",
+                text: "Ingresá un nombre e email válidos",
+                icon: "error",
+                confirmButtonText: "OK"
+
+            })
+        } else {
+
+            swal({
+                title: `¡Gracias por suscribirte, ${nombreSuscriptor}!`,
+                text: "Te agregamos a nuestra lista de suscriptores y pronto recibirás nuestras novedades.",
+                icon: "success",
+                confirmButtonText: "¡Genial!"
+            });
+        }
+
+    })
+
+
+
 })
 
 
+
+
+// Carrito
+
 document.addEventListener("DOMContentLoaded", function () {
+
+    // mensaje carrito vacio
+
     const carritoVacio = document.querySelector("#carritoVacio");
     const carritoVacioDiv = document.createElement("div");
     carritoVacioDiv.setAttribute("class", "card m-auto");
@@ -269,7 +345,19 @@ document.addEventListener("DOMContentLoaded", function () {
     botonVaciar.classList.add("btn", "btn-primary");
     botonVaciar.innerText = "Vaciar carrito";
     botonesDiv.appendChild(botonVaciar);
-    botonVaciar.addEventListener("click", limpiarCarrito);
+    // botonVaciar.addEventListener("click", limpiarCarrito);
+    botonVaciar.addEventListener("click", () => {
+        swal({
+            title: "¿Seguro querés hacer esto?",
+            text: "Esta acción eliminará todos los productos del carrito.",
+            icon: "warning",
+            buttons: ["Cancelar", "Aceptar"],
+        }).then((value) => {
+            if (value === true) {
+                limpiarCarrito();
+            }
+        });
+    });
 
     const botonComprar = document.createElement("button");
     botonComprar.classList.add("btn", "btn-success");
@@ -288,6 +376,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
+
+    // mostrar los productos agregados al carrito
 
     function mostrarCarrito() {
         contenedorCarrito.innerHTML = "";
@@ -316,11 +406,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             botonEliminar.addEventListener("click", () => {
+                swal({
+                    title: '¡Producto eliminado!',
+                    text: `Eliminaste el producto ${producto.nombre} del carrito`,
+                    icon: 'success'
+                });
                 eliminarProductoDeCarrito(producto.id);
-
             });
         });
     }
+
+
+    // Vaciar carrito
 
     function limpiarCarrito() {
         carrito = [];
@@ -329,6 +426,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const carritoLimpio = document.querySelector("#contenedorCarrito");
         carritoLimpio.innerHTML = "";
     }
+
+
+    // Modal de boton comprar
+    // No llegue a completar esta parte, para simular el pago
 
     const modalCompraDiv = document.querySelector("#modalCompra")
     const modalCompra = new bootstrap.Modal(modalCompraDiv);
@@ -341,13 +442,25 @@ document.addEventListener("DOMContentLoaded", function () {
         medioPagoSelect.addEventListener("change", function () {
             if (medioPagoSelect.value === "credito") {
                 cuotasDiv.classList.remove("ocultar");
-            } 
+            }
         });
     }
 
+    const confirmarCompra = document.querySelector("#btnConfirmarCompra");
+    confirmarCompra.addEventListener("click", () => {
+
+        modalCompra.hide()
+
+        swal({
+            title: "Te estamos redirigiendo al pago",
+            text: "Ya falta poco para que puedas renovar tu casa",
+        });
+    });
 
 
-    // Eliminar productos
+
+    // Eliminar productos 
+    //falta implementar posibilidad de disminuir o aumentar cantidad de mismo producto
 
     function eliminarProductoDeCarrito(idProducto) {
         carrito = carrito.filter((producto) => producto.id !== idProducto);
@@ -361,6 +474,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // Calcular total
+
     function calcularTotal() {
         carrito = JSON.parse(localStorage.getItem("carrito")) || [];
         return carrito.reduce((total, producto) => total + producto.precio, 0);
@@ -372,6 +486,7 @@ document.addEventListener("DOMContentLoaded", function () {
     totalDiv.innerText = `Total: $${total}`;
 
     // Actualizar total
+
     function actualizarTotal() {
         let totalActualizado = 0;
         carrito.forEach((producto) => {
@@ -382,4 +497,5 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 })
+
 
