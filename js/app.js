@@ -283,10 +283,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const inputNewsNombre = document.querySelector(".news-nombre");
     const inputNewsMail = document.querySelector(".news-mail");
     const btnSuscribirse = document.querySelector(".suscribirse");
-    const nombreSuscriptor = inputNewsNombre.value;
 
 
     btnSuscribirse.addEventListener("click", () => {
+        const nombreSuscriptor = inputNewsNombre.value;
         if (inputNewsNombre.value === "" || inputNewsMail.value === "") {
             swal({
                 title: "Error",
