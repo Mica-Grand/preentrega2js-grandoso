@@ -1,74 +1,14 @@
 
 
-// Array de productos - Catalogo
+// Solicitar array de productos - Catalogo
 
+let productos = [];
 
-const productos = [
-    {
-        id: 1,
-        nombre: "Velador Karen",
-        imagen: "https://github.com/Mica-Grand/preentrega2js-grandoso/blob/main/img/lampara-karen.jpeg?raw=true",
-        categoria: "lamparas",
-        descripcion: "Base de ceramica blanca. Pantalla de yute. Altura 45 cm",
-        precio: 10900
-    },
-    {
-        id: 2,
-        nombre: "Velador Tina",
-        imagen: "https://github.com/Mica-Grand/preentrega2js-grandoso/blob/main/img/lampara-tina.jpeg?raw=true",
-        categoria: "lamparas",
-        descripcion: "Base de cemento. Pantalla de tela. Altura 45 cm",
-        precio: 11900
-    },
-    {
-        id: 3,
-        nombre: "Puff natural",
-        imagen: "https://github.com/Mica-Grand/preentrega2js-grandoso/blob/main/img/puff.jpeg?raw=true",
-        categoria: "muebles",
-        descripcion: "puff de seagrass. Medidas: 30cm x 45cm",
-        precio: 19900
-    },
-    {
-        id: 4,
-        nombre: "Espejo circular",
-        imagen: "https://github.com/Mica-Grand/preentrega2js-grandoso/blob/main/img/espejo.jpeg?raw=true",
-        categoria: "deco",
-        descripcion: "Espejo con marco de fibras naturales. Medidas: 45cm",
-        precio: 12100
-    },
-    {
-        id: 5,
-        nombre: "Banquito Quito",
-        imagen: "https://github.com/Mica-Grand/preentrega2js-grandoso/blob/main/img/banquito.jpeg?raw=true",
-        categoria: "muebles",
-        descripcion: "Banco de madera de álamo. Medidas: ancho 90 cm, alto 65 cm.",
-        precio: 15000
-    },
-    {
-        id: 6,
-        nombre: "Perchero Pola",
-        imagen: "https://github.com/Mica-Grand/preentrega2js-grandoso/blob/main/img/perchero.jpeg?raw=true",
-        categoria: "muebles",
-        descripcion: "Perchero y zapatero confeccionado en madera de álamo.",
-        precio: 25000
-    },
-    {
-        id: 7,
-        nombre: "Lámpara hilos",
-        imagen: "https://github.com/Mica-Grand/preentrega2js-grandoso/blob/main/img/lampara-hilos.jpeg?raw=true",
-        categoria: "lamparas",
-        descripcion: "Lámpara colgante confeccionada en hilos naturales",
-        precio: 14000
-    },
-    {
-        id: 8,
-        nombre: "Cuadro Home",
-        imagen: "https://github.com/Mica-Grand/preentrega2js-grandoso/blob/main/img/cuadro.jpeg?raw=true",
-        categoria: "deco",
-        descripcion: "Cuadro decorativo. Medidas: 40cm x 60cm",
-        precio: 15000
-    },
-];
+const pedirProductos = async () => {
+    let resp = await fetch("productos.json");
+    productos = await resp.json();
+};
+
 
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
@@ -80,8 +20,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const contador = document.querySelector("#contadorCarrito");
     function actualizarContador() {
-        console.log(carrito.length);
-        contador.innerText = carrito.length;
+        let totalCantidad = 0;
+        for (let i = 0; i < carrito.length; i++) {
+            totalCantidad += carrito[i].cantidad;
+        }
+        contador.innerText = totalCantidad;
     }
 
     actualizarContador();
@@ -94,15 +37,16 @@ document.addEventListener("DOMContentLoaded", function () {
     filaTarjetas.classList.add("row", "gx-0", "gy-3");
     contenedorTarjetas.appendChild(filaTarjetas);
 
-    function mostrarProductos(filtro) {
+    async function mostrarProductos(filtro) {
+        await pedirProductos();
 
         filaTarjetas.innerHTML = "";
 
-        const productosFiltrados = productos.filter((producto) => {
-            return filtro === "*" || producto.categoria === filtro;
+        productos = productos.filter((producto) => {
+            return filtro === "todo" || producto.categoria === filtro;
         })
 
-        productosFiltrados.forEach((producto) => {
+        productos.forEach((producto) => {
             const tarjeta = document.createElement("div");
             tarjeta.classList.add("tarjeta", "col-md-6", "col-lg-4", "col-xl-3", "p-2", "text-center");
 
@@ -125,8 +69,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             const botonAgregar = document.createElement("button");
-            botonAgregar.classList.add("tarjeta-boton", "btn", "m-2", "text-dark");
-            botonAgregar.innerText = "Agregar al carrito";
+            botonAgregar.classList.add("tarjeta-boton", "btn", "m-2", "mx-auto", "text-dark", "text-center", "d-flex", "align-items-center");
+            botonAgregar.innerHTML = `<p class="m-auto"><i class="bi bi-cart-plus me-2"></i>Agregar al carrito</p>`;
             botonAgregar.setAttribute("data-producto-id", producto.id);
             tarjeta.appendChild(botonAgregar);
 
@@ -146,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
 
-    mostrarProductos("*");
+    mostrarProductos("todo");
 
     const botonesFiltro = document.querySelectorAll(".filtro");
 
@@ -157,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
             boton.classList.add("active-filter-btn");
 
-            const filtro = boton.getAttribute("data-filter");
+            const filtro = boton.getAttribute("data-filtro");
             mostrarProductos(filtro);
         });
     });
@@ -180,13 +124,11 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
         localStorage.setItem("carrito", JSON.stringify(carrito));
-        console.log(carrito);
         actualizarContador();
     }
 
 
     // Busqueda (
-    // Aca me falta implementar que ande al hacer enter y que aparezca un mensaje de producto no encontrado si no encuentra nada
 
     const btnBuscar = document.querySelector("#btn-buscar");
     const inputBuscar = document.querySelector("#input-buscar");
@@ -198,10 +140,25 @@ document.addEventListener("DOMContentLoaded", function () {
         let resultadosBusqueda = productos.filter((producto) => {
             return producto.nombre.toLowerCase().includes(busqueda);
         });
-        console.log(resultadosBusqueda);
-        mostrarResultadosBusqueda(resultadosBusqueda);
+        resultadosBusqueda.length === 0
+            ? mostrarMensajeNoEncontrado()
+            : mostrarResultadosBusqueda(resultadosBusqueda);
         modal.show();
     });
+
+    function mostrarMensajeNoEncontrado() {
+        filaTarjetasResultado.innerHTML = "";
+        const sinResultados = document.createElement("div");
+        sinResultados.setAttribute("class", "card m-auto");
+        sinResultados.innerHTML = `
+            <div class="card-body text-center">
+                <h3 class="card-title py-3 mt-3">No se encontraron resultados para tu búsqueda</h3>
+                <p class="card-text py-3 mb-3">Probá con otra palabra clave o explorá nuestro catálogo por categorías</p>
+            </div>
+        `;
+        filaTarjetasResultado.appendChild(sinResultados)
+
+    }
 
     function mostrarResultadosBusqueda(resultados) {
         filaTarjetasResultado.innerHTML = "";
@@ -209,9 +166,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const tarjetaResultado = document.createElement("div");
             tarjetaResultado.classList.add(
                 "tarjeta",
-                "col-md-6",
-                "col-lg-4",
-                "col-xl-3",
+                "col-12",
                 "p-2",
                 "text-center"
             );
@@ -220,10 +175,10 @@ document.addEventListener("DOMContentLoaded", function () {
             imagenTarjetaResultado.classList.add(
                 "tarjeta-img",
                 "img-thumbnail",
-                "position-relative"
+                "position-relative",
             );
             imagenTarjetaResultado.innerHTML = `
-            <img src="${producto.imagen}" class="w-100">
+            <img src="${producto.imagen}" class="w-100 h-100">
         `;
             tarjetaResultado.appendChild(imagenTarjetaResultado);
 
@@ -278,6 +233,8 @@ document.addEventListener("DOMContentLoaded", function () {
         actualizarContador();
     }
 
+
+
     // Newsletter
 
     const inputNewsNombre = document.querySelector(".news-nombre");
@@ -323,12 +280,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const carritoVacio = document.querySelector("#carritoVacio");
     const carritoVacioDiv = document.createElement("div");
     carritoVacioDiv.setAttribute("class", "card m-auto");
-    carritoVacioDiv.innerHTML = `
+    function mostrarMensajeCarritoVacio() {
+        carritoVacioDiv.innerHTML = `
         <div class="card-body text-center">
-            <h3 class="card-title py-3 mt-3">Carrito vacío</h3>
-            <p class="card-text py-3 mb-3">Agrega productos a tu carrito para comenzar a comprar</p>
+            <h3 class="card-title py-3 mt-3">El carrito está vacío</h3>
+            <p class="card-text py-3 mb-3">Agregá productos para comenzar a comprar</p>
         </div>
-    `;
+        `;
+        totalCarrito.style.display = "none";
+        carritoVacio.appendChild(carritoVacioDiv);
+    }
+
     const contenedorCarrito = document.querySelector("#contenedorCarrito");
     carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
@@ -345,7 +307,6 @@ document.addEventListener("DOMContentLoaded", function () {
     botonVaciar.classList.add("btn", "btn-primary");
     botonVaciar.innerText = "Vaciar carrito";
     botonesDiv.appendChild(botonVaciar);
-    // botonVaciar.addEventListener("click", limpiarCarrito);
     botonVaciar.addEventListener("click", () => {
         swal({
             title: "¿Seguro querés hacer esto?",
@@ -355,6 +316,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }).then((value) => {
             if (value === true) {
                 limpiarCarrito();
+                mostrarMensajeCarritoVacio();
             }
         });
     });
@@ -367,9 +329,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     if (!carrito || carrito.length === 0) {
-        console.log("El carrito está vacío.")
         totalCarrito.style.display = "none";
-        carritoVacio.appendChild(carritoVacioDiv);
+        mostrarMensajeCarritoVacio();
     } else {
         totalCarrito.style.display = "block";
         mostrarCarrito();
@@ -429,7 +390,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // Modal de boton comprar
-    // No llegue a completar esta parte, para simular el pago
 
     const modalCompraDiv = document.querySelector("#modalCompra")
     const modalCompra = new bootstrap.Modal(modalCompraDiv);
@@ -460,14 +420,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // Eliminar productos 
-    //falta implementar posibilidad de disminuir o aumentar cantidad de mismo producto
 
     function eliminarProductoDeCarrito(idProducto) {
         carrito = carrito.filter((producto) => producto.id !== idProducto);
         localStorage.setItem("carrito", JSON.stringify(carrito));
-        actualizarTotal();
-        mostrarCarrito();
-        actualizarContador();
+        if (carrito.length === 0) {
+            contenedorCarrito.innerHTML = "";
+            mostrarMensajeCarritoVacio();
+            actualizarContador();
+        } else {
+            actualizarTotal();
+            mostrarCarrito();
+            actualizarContador();
+
+        }
     }
 
     mostrarCarrito();

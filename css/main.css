@@ -3,7 +3,7 @@
 :root {
     --lg-font: 'Kaisei Tokumin', serif;
     --sm-font: 'Poppins', sans-serif;
-    --pink: #7AD4CC;
+    --celeste: #7AD4CC;
 }
 
 body {
@@ -12,7 +12,7 @@ body {
 
 /* button */
 .bg-primary {
-    background-color: var(--pink) !important;
+    background-color: var(--celeste) !important;
 }
 
 .btn:not(.nav-btns button) {
@@ -24,14 +24,14 @@ body {
 }
 
 .btn:not(.nav-btns button):hover {
-    background-color: var(--pink);
+    background-color: var(--celeste);
     color: #fff;
-    border-color: var(--pink);
+    border-color: var(--celeste);
 }
 
 /* text color */
 .text-primary {
-    color: var(--pink) !important;
+    color: var(--celeste) !important;
 }
 
 /* navbar */
@@ -50,13 +50,17 @@ body {
 }
 
 .nav-link:hover {
-    color: var(--pink) !important;
+    color: var(--celeste) !important;
 }
 
 .nav-item {
     border-bottom: 0.5px solid rgba(0, 0, 0, 0.05);
 }
 
+.cart-link {
+    color: black; 
+    text-decoration: none; 
+}
 /* header */
 
 .header {
@@ -77,7 +81,7 @@ body {
 }
 
 .carousel-item .btn:hover {
-    border-color: var(--pink) !important;
+    border-color: var(--celeste) !important;
 }
 
 /* title */
@@ -86,7 +90,7 @@ body {
     content: "";
     width: 4px;
     height: 50px;
-    background-color: var(--pink);
+    background-color: var(--celeste);
     left: -20px;
     top: 50%;
     -webkit-transform: translateY(-50%);
@@ -96,9 +100,9 @@ body {
 
 /* catálogo */
 .active-filter-btn {
-    background-color: var(--pink) !important;
+    background-color: var(--celeste) !important;
     color: #fff !important;
-    border-color: var(--pink) !important;
+    border-color: var(--celeste) !important;
 }
 
 .filter-button-group .btn:hover {
@@ -115,6 +119,7 @@ body {
 
 .tarjeta-img img {
     height: 295.99px;
+    
 }
 
 /* carrito */
@@ -160,9 +165,9 @@ body {
 }
 
 #newsletter .btn {
-    background-color: var(--pink);
+    background-color: var(--celeste);
     color: #fff;
-    border-color: var(--pink);
+    border-color: var(--celeste);
 }
 
 #newsletter .btn:hover {
@@ -190,13 +195,14 @@ footer a {
 }
 
 footer a:hover {
-    color: var(--pink) !important;
+    color: var(--celeste) !important;
 }
 
 .text-white,
 .icono-contacto {
     color: #fff !important;
 }
+
 
 /* media queries */
 @media(min-width: 992px) {
