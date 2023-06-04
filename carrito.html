@@ -34,7 +34,7 @@
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            
+
             <div class="collapse navbar-collapse order-lg-1" id="navMenu">
                 <ul class="navbar-nav mx-auto text-center">
                     <li class="nav-item px-2 py-2">
@@ -92,32 +92,32 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form class="form-compra">
                         <div class="mb-3">
                             <label for="nombre" class="form-label">Nombre y apellido</label>
-                            <input type="text" class="form-control" id="nombre">
+                            <input required type="text" class="form-control" id="nombre">
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email">
+                            <input required type="email" class="form-control" id="email">
                         </div>
                         <div class="mb-3">
                             <label for="direccion" class="form-label">Dirección</label>
-                            <input type="text" class="form-control" id="direccion">
+                            <input required type="text" class="form-control" id="direccion">
                         </div>
                         <div class="mb-3">
                             <label for="medioPago" class="form-label">Medio de pago</label>
-                            <select class="form-select" id="medioPago">
+                            <select required class="form-select" id="medioPago">
                                 <option value="debito">Tarjeta de débito</option>
                                 <option value="credito">Tarjeta de crédito</option>
                             </select>
                         </div>
                         <div class="mb-3" id="divCuotas">
                             <label for="cuotas" class="form-label">Cuotas</label>
-                            <select class="form-select" id="cuotas">
-                                <option value="1">1 cuota</option>
-                                <option value="3">3 cuotas</option>
-                                <option value="6">6 cuotas</option>
+                            <select required class="form-select" id="cuotas">
+                                <option required value="1">1 cuota</option>
+                                <option required value="3">3 cuotas</option>
+                                <option required value="6">6 cuotas</option>
                             </select>
                         </div>
                     </form>

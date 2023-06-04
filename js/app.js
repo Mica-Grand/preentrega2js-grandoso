@@ -254,7 +254,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 text: "Ingresá un nombre e email válidos",
                 icon: "error",
                 buttons: {
-                    confirm : {text:'Ok',className:"sweet-confirm"},
+                    confirm: { text: 'Ok', className: "sweet-confirm" },
                 }
 
             })
@@ -265,8 +265,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 text: "Te agregamos a nuestra lista de suscriptores y pronto recibirás nuestras novedades.",
                 icon: "success",
                 buttons: {
-                    confirm : {text: "¡Genial!",className:"sweet-confirm"},
-                }            
+                    confirm: { text: "¡Genial!", className: "sweet-confirm" },
+                }
             });
         }
 
@@ -302,7 +302,7 @@ document.addEventListener("DOMContentLoaded", function () {
         carritoVacio.appendChild(carritoVacioDiv);
         const botonIrAComprar = document.querySelector("#btnVerProductos");
         botonIrAComprar.addEventListener("click", () => {
-            window.location.href = "index.html#catalogo"; 
+            window.location.href = "index.html#catalogo";
         });
     }
 
@@ -328,8 +328,8 @@ document.addEventListener("DOMContentLoaded", function () {
             text: "Esta acción eliminará todos los productos del carrito.",
             icon: "warning",
             buttons: {
-                cancel : "Cancelar",
-                confirm : {text:"Sí",className:"sweet-confirm"},
+                cancel: "Cancelar",
+                confirm: { text: "Sí", className: "sweet-confirm" },
             }
         }).then((value) => {
             if (value === true) {
@@ -368,7 +368,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <img class="card-img-top img-fluid img-thumbnail" src="${producto.imagen}" alt="${producto.nombre}">
             <div class="card-body text-center">
                 <h3 class="card-title">${producto.nombre}</h3>
-                <p class="card-text">Precio: $${producto.precio*producto.cantidad}</p>
+                <p class="card-text">Precio: $${producto.precio * producto.cantidad}</p>
             </div>
         `;
             contenedorCarrito.appendChild(productoHTML);
@@ -379,24 +379,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const contenedorCantidad = document.createElement("div");
             contenedorCantidad.classList.add("contenedor-cantidad");
-            
+
             const botonDisminuir = document.createElement("button");
             botonDisminuir.classList.add("boton-disminuir", "m-2");
             botonDisminuir.innerHTML = `<i class="bi bi-dash"></i>`;
             botonDisminuir.setAttribute("data-producto-id-disminuir", producto.id);
             contenedorCantidad.appendChild(botonDisminuir);
-            
+
             const cantidadProducto = document.createElement("span");
             cantidadProducto.classList.add("cantidad-producto");
             cantidadProducto.textContent = producto.cantidad;
             contenedorCantidad.appendChild(cantidadProducto);
-            
+
             const botonAumentar = document.createElement("button");
             botonAumentar.classList.add("boton-aumentar", "m-2");
             botonAumentar.innerHTML = `<i class="bi bi-plus"></i>`;
             botonAumentar.setAttribute("data-producto-id-aumentar", producto.id);
             contenedorCantidad.appendChild(botonAumentar);
-            
+
             productoHTML.appendChild(contenedorCantidad);
 
             botonDisminuir.addEventListener("click", () => {
@@ -470,23 +470,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const confirmarCompra = document.querySelector("#btnConfirmarCompra");
     confirmarCompra.addEventListener("click", () => {
+        const formCompra = document.querySelector(".form-compra");
+        if (formCompra.checkValidity()) {
+            modalCompra.hide()
 
-        modalCompra.hide()
-
-        swal({
-            content: {
-                element: "img",
-                attributes: {
-                src: "img/Loading_icon.gif",
-                }},
-            title: "Te vamos a redirigir al pago",
-            text: "Ya falta poco para que puedas renovar tu casa",
-            buttons: {
-                cancel : "Sacame de acá",
-                confirm : {text:"¡Vamos!",className:"sweet-confirm"},
-            },
-            reverseButtons: true,
-        });
+            swal({
+                content: {
+                    element: "img",
+                    attributes: {
+                        src: "img/Loading_icon.gif",
+                    }
+                },
+                title: "Te vamos a redirigir al pago",
+                text: "Ya falta poco para que puedas renovar tu casa",
+                buttons: {
+                    cancel: "Sacame de acá",
+                    confirm: { text: "¡Vamos!", className: "sweet-confirm" },
+                },
+            });
+        } else {
+            formCompra.reportValidity();
+        }
     });
 
 
