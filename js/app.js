@@ -77,9 +77,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
             botonAgregar.addEventListener("click", () => {
                 swal({
-                    title: '¡Producto agregado!',
+                    title: "¡Producto agregado!",
                     text: `Agregaste el producto ${producto.nombre} al carrito`,
-                    icon: 'success'
+                    icon: "success",
+                    buttons: false,
+                    timer: 1500,
+
                 });
                 agregarCarrito(producto);
             });
@@ -204,7 +207,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     title: "¡Producto agregado!",
                     text: `Agregaste el producto ${producto.nombre} al carrito`,
                     icon: "success",
-                    timer: 2000,
+                    buttons: false,
+                    timer: 1500,
                 });
                 agregarDesdeModal(producto);
                 actualizarContador();
@@ -249,7 +253,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 title: "Error",
                 text: "Ingresá un nombre e email válidos",
                 icon: "error",
-                confirmButtonText: "OK"
+                buttons: {
+                    confirm : {text:'Ok',className:"sweet-confirm"},
+                }
 
             })
         } else {
@@ -258,7 +264,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 title: `¡Gracias por suscribirte, ${nombreSuscriptor}!`,
                 text: "Te agregamos a nuestra lista de suscriptores y pronto recibirás nuestras novedades.",
                 icon: "success",
-                confirmButtonText: "¡Genial!"
+                buttons: {
+                    confirm : {text: "¡Genial!",className:"sweet-confirm"},
+                }            
             });
         }
 
@@ -286,9 +294,16 @@ document.addEventListener("DOMContentLoaded", function () {
             <h3 class="card-title py-3 mt-3">El carrito está vacío</h3>
             <p class="card-text py-3 mb-3">Agregá productos para comenzar a comprar</p>
         </div>
+        <span class="text-center">
+            <button class="btn btn-primary btn-ver text-center mb-3" id="btnVerProductos">Ir a comprar</button>
+        </span>
         `;
         totalCarrito.style.display = "none";
         carritoVacio.appendChild(carritoVacioDiv);
+        const botonIrAComprar = document.querySelector("#btnVerProductos");
+        botonIrAComprar.addEventListener("click", () => {
+            window.location.href = "index.html#catalogo"; 
+        });
     }
 
     const contenedorCarrito = document.querySelector("#contenedorCarrito");
@@ -312,7 +327,11 @@ document.addEventListener("DOMContentLoaded", function () {
             title: "¿Seguro querés hacer esto?",
             text: "Esta acción eliminará todos los productos del carrito.",
             icon: "warning",
-            buttons: ["Cancelar", "Aceptar"],
+            // buttons: ["Cancelar", "Aceptar"],
+            buttons: {
+                confirm : {text:"Sí",className:"sweet-confirm"},
+                cancel : "Cancelar",
+            }
         }).then((value) => {
             if (value === true) {
                 limpiarCarrito();
@@ -323,7 +342,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const botonComprar = document.createElement("button");
     botonComprar.classList.add("btn", "btn-success");
-    botonComprar.innerText = "Comprar";
+    botonComprar.innerText = "Iniciar compra";
     botonesDiv.appendChild(botonComprar);
     botonComprar.addEventListener("click", comprarProductos);
 
@@ -350,27 +369,72 @@ document.addEventListener("DOMContentLoaded", function () {
             <img class="card-img-top img-fluid img-thumbnail" src="${producto.imagen}" alt="${producto.nombre}">
             <div class="card-body text-center">
                 <h3 class="card-title">${producto.nombre}</h3>
-                <p class="card-text">Cantidad: ${producto.cantidad}</p>
-                <p class="card-text">Precio: $${producto.precio}</p>
+                <p class="card-text">Precio: $${producto.precio*producto.cantidad}</p>
             </div>
         `;
             contenedorCarrito.appendChild(productoHTML);
 
 
+
+            // Botones de aumentar y disminuir cantidad
+
+            const contenedorCantidad = document.createElement("div");
+            contenedorCantidad.classList.add("contenedor-cantidad");
+            
+            const botonDisminuir = document.createElement("button");
+            botonDisminuir.classList.add("boton-disminuir", "m-2");
+            botonDisminuir.innerHTML = `<i class="bi bi-dash"></i>`;
+            botonDisminuir.setAttribute("data-producto-id-disminuir", producto.id);
+            contenedorCantidad.appendChild(botonDisminuir);
+            
+            const cantidadProducto = document.createElement("span");
+            cantidadProducto.classList.add("cantidad-producto");
+            cantidadProducto.textContent = producto.cantidad;
+            contenedorCantidad.appendChild(cantidadProducto);
+            
+            const botonAumentar = document.createElement("button");
+            botonAumentar.classList.add("boton-aumentar", "m-2");
+            botonAumentar.innerHTML = `<i class="bi bi-plus"></i>`;
+            botonAumentar.setAttribute("data-producto-id-aumentar", producto.id);
+            contenedorCantidad.appendChild(botonAumentar);
+            
+            productoHTML.appendChild(contenedorCantidad);
+
+            botonDisminuir.addEventListener("click", () => {
+                const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+                const productoActualizado = carrito.find(item => item.id === producto.id);
+                if (productoActualizado && productoActualizado.cantidad > 1) {
+                    productoActualizado.cantidad--;
+                    localStorage.setItem("carrito", JSON.stringify(carrito));
+                    mostrarCarrito();
+                    actualizarTotal();
+                }
+            });
+
+            botonAumentar.addEventListener("click", () => {
+                const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+                const productoActualizado = carrito.find(item => item.id === producto.id);
+                if (productoActualizado) {
+                    productoActualizado.cantidad++;
+                    localStorage.setItem("carrito", JSON.stringify(carrito));
+                    mostrarCarrito();
+                    actualizarTotal();
+                }
+            });
+
             const botonEliminar = document.createElement("button");
             botonEliminar.classList.add("boton-eliminar", "btn", "m-2", "text-dark");
-            botonEliminar.innerText = "Eliminar";
+            botonEliminar.innerHTML = `<p class="m-auto"><i class="bi bi-trash3 me-2"></i>Eliminar</p>`;
             botonEliminar.setAttribute("data-producto-id-eliminar", producto.id);
-
-
             productoHTML.appendChild(botonEliminar);
-
 
             botonEliminar.addEventListener("click", () => {
                 swal({
-                    title: '¡Producto eliminado!',
+                    title: "¡Producto eliminado!",
                     text: `Eliminaste el producto ${producto.nombre} del carrito`,
-                    icon: 'success'
+                    icon: "success",
+                    buttons: false,
+                    timer: 1500,
                 });
                 eliminarProductoDeCarrito(producto.id);
             });
@@ -389,12 +453,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // Modal de boton comprar
+    // Modal de boton Iniciar compra
 
     const modalCompraDiv = document.querySelector("#modalCompra")
     const modalCompra = new bootstrap.Modal(modalCompraDiv);
     function comprarProductos() {
-        console.log("¡Gracias por tu compra!")
         modalCompra.show()
         const medioPagoSelect = document.getElementById("medioPago");
         const cuotasDiv = document.getElementById("divCuotas");
@@ -412,8 +475,18 @@ document.addEventListener("DOMContentLoaded", function () {
         modalCompra.hide()
 
         swal({
-            title: "Te estamos redirigiendo al pago",
+            content: {
+                element: "img",
+                attributes: {
+                src: "img/Loading_icon.gif",
+                }},
+            title: "Te vamos a redirigir al pago",
             text: "Ya falta poco para que puedas renovar tu casa",
+            buttons: {
+                cancel : "Sacame de acá",
+                confirm : {text:"¡Vamos!",className:"sweet-confirm"},
+            },
+            reverseButtons: true,
         });
     });
 
