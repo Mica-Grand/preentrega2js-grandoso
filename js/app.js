@@ -327,10 +327,9 @@ document.addEventListener("DOMContentLoaded", function () {
             title: "¿Seguro querés hacer esto?",
             text: "Esta acción eliminará todos los productos del carrito.",
             icon: "warning",
-            // buttons: ["Cancelar", "Aceptar"],
             buttons: {
-                confirm : {text:"Sí",className:"sweet-confirm"},
                 cancel : "Cancelar",
+                confirm : {text:"Sí",className:"sweet-confirm"},
             }
         }).then((value) => {
             if (value === true) {

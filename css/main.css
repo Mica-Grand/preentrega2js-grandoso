@@ -72,8 +72,8 @@ body {
     background-repeat: no-repeat;
 }
 
-.carousel-inner h1 {
-    font-size: 60px;
+.titulo-carrousel {
+    font-size: 50px;
     font-family: var(--lg-font);
 }
 
@@ -204,6 +204,10 @@ body {
     border-bottom-left-radius: 25px;
 }
 
+.form-control:focus {
+    box-shadow: 0 0 5px var(--celeste);
+}
+
 #newsletter .btn {
     background-color: var(--celeste);
     color: #fff;
@@ -245,10 +249,13 @@ footer a:hover {
 
 /* sweet alert */
 .sweet-confirm {
-
     background-color: #7AD4CC;
 }
 
+.sweet-confirm:hover {
+    background-color: #000 !important;
+    border-color: #000 !important;
+}
 
 /* media queries */
 @media(min-width: 992px) {
