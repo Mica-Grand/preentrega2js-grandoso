@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const imagenTarjeta = document.createElement("div");
             imagenTarjeta.classList.add("tarjeta-img", "img-thumbnail", "position-relative");
             imagenTarjeta.innerHTML = `
-                <img src="${producto.imagen}" class="w-100">
+                <img src="${producto.imagen}" class="w-100 img-producto">
             `;
             tarjeta.appendChild(imagenTarjeta);
 
@@ -131,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // Busqueda (
+    // Busqueda 
 
     const btnBuscar = document.querySelector("#btn-buscar");
     const inputBuscar = document.querySelector("#input-buscar");
@@ -139,6 +139,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const modal = new bootstrap.Modal(document.querySelector("#modalBusqueda"), {});
 
     btnBuscar.addEventListener("click", () => {
+        pedirProductos().then(() => {
+
         const busqueda = inputBuscar.value.toLowerCase();
         let resultadosBusqueda = productos.filter((producto) => {
             return producto.nombre.toLowerCase().includes(busqueda);
@@ -147,6 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
             ? mostrarMensajeNoEncontrado()
             : mostrarResultadosBusqueda(resultadosBusqueda);
         modal.show();
+        });
     });
 
     function mostrarMensajeNoEncontrado() {

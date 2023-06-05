@@ -123,6 +123,15 @@ body {
 
 }
 
+.img-producto {
+    transition: transform 0.5s ease;
+}
+
+.img-producto:hover {
+    transform: scale(1.2);
+}
+
+
 /* carrito */
 
 .contenedor-cantidad {
